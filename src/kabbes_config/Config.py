@@ -198,10 +198,6 @@ class Config( ParentClass ):
                     args = method_config.get_args()
                     kwargs = method_config.get_kwargs()
 
-                    att_config.print_atts()
-                    print (ref)
-                    ref.print_atts()
-
                     method_pointer = ref.get_attr( method_config.get_attr( Config._METHOD_NAME_KEY ) ) 
                     new_obj = method_pointer( *args, **kwargs )
 
