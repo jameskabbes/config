@@ -1,5 +1,4 @@
 from parent_class import ParentClass
-import kabbes_config
 import dir_ops as do
 import py_starter as ps
 
@@ -93,7 +92,7 @@ class Config( ParentClass ):
         
         return config_obj
 
-    def get_dict( self, use_ref=False ):
+    def get_dict( self, use_ref=True ):
 
         d = self.__dict__.copy()
         for att in Config._DO_NOT_CHECK:
@@ -172,7 +171,7 @@ class Config( ParentClass ):
 
     def reevaluate( self ):
         
-        for key in self.get_dict():
+        for key in self.get_dict( use_ref=False ):
             value = self.get_attr(key)
             if isinstance( value, Config ):
                 value.reevaluate()
