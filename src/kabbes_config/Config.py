@@ -7,18 +7,13 @@ class Config( ParentClass ):
 
     _DO_NOT_PRINT = ['type','Parent']
     _DO_NOT_CHECK = ['type','Parent']
-    _HEAD_ATTS = {
-        "cwd.Dir":    kabbes_config._cwd_Dir,
-        "xdg.Dir":    kabbes_config._xdg_Dir,
-        "home.Dir":   kabbes_config._home_Dir,
-        "config.Dir": kabbes_config._config_Dir
-    }
     _TRIGGER_BEG = '{{'
     _TRIGGER_END = '}}'
     _REF_OBJ_KEY = '$ref'
     _EVAL_CODE = '!'
     _ATT_SPLIT = '.'
     _METHOD_KEY = 'method'
+    _ATTRIBUTE_KEY = 'attribute'
     _METHOD_NAME_KEY = 'name'
     _ARGS_KEY = 'args'
     _KWARGS_KEY = 'kwargs'
@@ -27,10 +22,6 @@ class Config( ParentClass ):
 
         ParentClass.__init__( self )
         self.Parent = Parent
-
-        if self.Parent == None:
-            self.load_dict( self._HEAD_ATTS )
-
         self.load_dict( kwargs )
 
     def set_attr(self, att: str, val):
@@ -199,13 +190,24 @@ class Config( ParentClass ):
                 
                 #get ref Config obj
                 ref = self.check_ref( att_config.get_attr( Config._REF_OBJ_KEY) )
-                
-                method_config = att_config.get_attr( Config._METHOD_KEY )
-                args = method_config.get_args()
-                kwargs = method_config.get_kwargs()
 
-                method_pointer = ref.get_attr( method_config.get_attr( Config._METHOD_NAME_KEY ) ) 
-                new_obj = method_pointer( *args, **kwargs )
+                # method
+                if att_config.has_attr( Config._METHOD_KEY ):
+                    method_config = att_config.get_attr( Config._METHOD_KEY )
+                    
+                    args = method_config.get_args()
+                    kwargs = method_config.get_kwargs()
+
+                    att_config.print_atts()
+                    print (ref)
+                    ref.print_atts()
+
+                    method_pointer = ref.get_attr( method_config.get_attr( Config._METHOD_NAME_KEY ) ) 
+                    new_obj = method_pointer( *args, **kwargs )
+
+                #attribute
+                if att_config.has_attr( Config._ATTRIBUTE_KEY ):
+                    new_obj = ref.get_attr( att_config.get_attr( Config._ATTRIBUTE_KEY ) )
 
             self.set_attr( att.replace( self._EVAL_CODE, '' ), new_obj )
 

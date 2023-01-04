@@ -19,12 +19,16 @@ def load_Config( DEFAULT_CONFIG_PATH=None, config =None ):
         config.reevaluate()
 
     # 3. Load user_settings
-    if config.has_attr( "user_config.path" ):
-        config_Path = do.Path( config.user_config.path )
-        if config_Path.exists():
-            config.load_dict( ps.json_to_dict( config_Path.read() ) )
-            config.load_dict( kabbes_config.sys_kwargs )
-            config.reevaluate()
+    if config.has_attr( "user_config" ):
+        if config.user_config.has_attr( 'Path' ):
+            config.user_config.path = config.user_config.Path.path             
+
+        if config.has_attr( 'user_config.path' ):
+            config_Path = do.Path( config.user_config.path )
+            if config_Path.exists():
+                config.load_dict( ps.json_to_dict( config_Path.read() ) )
+                config.load_dict( kabbes_config.sys_kwargs )
+                config.reevaluate()
 
     return config
 
