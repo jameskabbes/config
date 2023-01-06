@@ -1,3 +1,2 @@
-from .utils import *
-from .Config import Config
+from .Config import Config, RootConfig
 
