@@ -23,9 +23,10 @@ class Value( ParentClass ):
         return self.value
 
     def get_ref( self ):
-
+        
         # "{{repo.name}} {{repo.dir}}"
         if type(self.value) == str:
+
             formatted_nodes = ps.find_string_formatting( self.value, self._REF_TRIGGER_BEG, self._REF_TRIGGER_END )
             ref_node_keys = [ ps.strip_trigger( formatted_node, self._REF_TRIGGER_BEG, self._REF_TRIGGER_END ) for formatted_node in formatted_nodes ]
 
@@ -34,11 +35,12 @@ class Value( ParentClass ):
             for node_key in ref_node_keys:
                 ref_node = self.Node.get_root().get_node( node_key )
 
+
                 try:
                     #recursively find what string or object this {{value}} is referencing
                     ref_node_value = ref_node.get_ref_value()
                 except:
-                    print ('ERROR: could not find ref value for ref_obj')
+                    print ('ERROR: could not find value for ref_obj')
                     print ('Node key: ' + str(node_key))
                     print ('Node: ' + str(ref_node))
                     assert False
@@ -48,12 +50,12 @@ class Value( ParentClass ):
             if len(ref_node_keys) != 1:
                 object_only = False
             else:
-                if len(ref_node_keys[0]) != len(self.value):
+                if len(formatted_nodes[0]) != len(self.value):
                     object_only = False
 
             # can return an Object
             if object_only:
-                return ref_node
+                return ref_node.get_ref_value()
             
             # with multiple Objects, we must turn them into string representations
             else:

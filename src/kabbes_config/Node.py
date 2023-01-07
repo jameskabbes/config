@@ -68,6 +68,7 @@ class Node( ParentClass ):
 
         for child_node in node:
             self._add_Node( child_node )
+            child_node.parent = self
 
     ### Nodes
     def _add_Node( self, node ):
@@ -169,29 +170,38 @@ class Node( ParentClass ):
         if eval_key_node.has_key( Key._REF_OBJ_KEY ):
 
             # $ref
-            rej_obj_node = eval_key_node.nodes[ Key._REF_OBJ_KEY ]
-            ref_node = rej_obj_node.get_ref_value()
-            
-            if type(ref_node) == str:
-                if ref_node in self._SPECIAL_REF_OBJS:
-                    ref_node = self._SPECIAL_REF_OBJS[ ref_node ]
+            ref_obj_node = eval_key_node.nodes[ Key._REF_OBJ_KEY ]
+            ref_obj = ref_obj_node.get_ref_value()
+
+            if type(ref_obj) == str:
+                if ref_obj in self._SPECIAL_REF_OBJS:
+                    ref_obj = self._SPECIAL_REF_OBJS[ ref_obj ]
 
             #method
             if eval_key_node.has_key( Key._METHOD_KEY ):
-
+                
                 method_node = eval_key_node.nodes[ Key._METHOD_KEY ]
                 method_name_node = method_node.nodes[ Key._METHOD_NAME_KEY ]
 
                 args = method_node.get_args()
                 kwargs = method_node.get_kwargs()
 
-                method_pointer = ref_node.get_attr( method_name_node.get_ref_value() )
+                method_name_str = method_name_node.get_ref_value()
+
+                try:
+                    method_pointer = ref_obj.get_attr( method_name_str )
+                except:
+                    print ('ERROR')
+                    print ('Could not find method ' + method_name_str + ' for ' + str(ref_obj))
+                    print ('REF NODE: ' + str( ref_obj ))
+                    print ('type: ' + str(type(ref_obj)))
+                    assert False
                 new_obj = method_pointer( *args, **kwargs )
 
             #attribute
             elif eval_key_node.has_key( Key._ATTRIBUTE_KEY ):
                 attribute_node = eval_key_node.nodes[ Key._ATTRIBUTE_KEY ]
-                new_obj = ref_node.get_attr( attribute_node.get_ref_value() )
+                new_obj = ref_obj.get_attr( attribute_node.get_ref_value() )
 
         # if $ref isn't found (this probably shouldn't happen) just return the node's value, probably None
         else:
