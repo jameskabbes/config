@@ -80,6 +80,9 @@ class Node( ParentClass ):
         self._add_Node( node )
         return node
 
+    def del_self( self ):
+        del self.parent.nodes[ self.key ]
+
     def get_root( self ):
 
         if self.parent != None:
