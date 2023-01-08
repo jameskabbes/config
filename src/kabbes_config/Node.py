@@ -206,9 +206,9 @@ class Node( ParentClass ):
                 attribute_node = eval_key_node.nodes[ Key._ATTRIBUTE_KEY ]
                 new_obj = ref_obj.get_attr( attribute_node.get_ref_value() )
 
-        # if $ref isn't found (this probably shouldn't happen) just return the node's value, probably None
+        # if $ref isn't found just return the node's value
         else:
-            value = eval_key_node.get_ref_value()
+            new_obj = eval_key_node.get_ref_value()
 
         # Do not add this Node to the parent's nodes, since we will only evaluate it once on runtime
         new_node = Node( key, parent=self.parent, value=new_obj )
