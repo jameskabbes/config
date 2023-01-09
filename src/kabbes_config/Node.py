@@ -65,10 +65,7 @@ class Node( ParentClass ):
             self.set_key( key, dict[key] )            
 
     def merge( self, node ):
-
-        for child_node in node:
-            self._add_Node( child_node )
-            child_node.parent = self
+        self.load_dict( node.get_dict(ref=False,eval=False) )
 
     ### Nodes
     def _add_Node( self, node ):
