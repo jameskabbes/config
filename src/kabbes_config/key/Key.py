@@ -87,11 +87,11 @@ class Key( ParentClass ):
             #attribute
             elif self.Node.has_key( self._ATTRIBUTE_KEY ):
                 attribute_node = self.Node.nodes[ self._ATTRIBUTE_KEY ]
-                new_obj = ref_obj.get_attr( attribute_node.get_ref() )
+                new_obj = ref_obj.get_attr( attribute_node.Value.get_ref() )
 
         # if $ref isn't found just return the node's value
         else:
-            new_obj = self.Node.get_ref()
+            new_obj = self.Node.Value.get_ref()
 
         # Do not add this Node to the parent's nodes, since we will only evaluate it once on runtime
         new_node = kabbes_config.Node( self.key, parent=self.Node.parent, value=new_obj )

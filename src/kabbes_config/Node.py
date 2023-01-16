@@ -188,6 +188,7 @@ class Node( ParentClass ):
             return kwargs_node.get_dict( ref=True, eval=True )
         return {}
 
+    ### Dict
     def get_dict( self, **kwargs ):
 
         default_kwargs = {

@@ -10,8 +10,8 @@ class Base( ParentClass ):
     _LOCAL_REF_TRIGGER_BEG = '{R{'
     _LOCAL_REF_TRIGGER_END = '}R}'
 
-    _ONE_LINE_ATTS = ['Node','value']
-    _IMP_ATTS = ['Node','value']
+    _ONE_LINE_ATTS = ['value']
+    _IMP_ATTS = ['value']
 
     def __init__( self, Node, value ):
         ParentClass.__init__( self )
@@ -38,13 +38,13 @@ class Base( ParentClass ):
 
             for i in range(len(ref_node_keys)):
                 
-                node_keys = ref_node_keys[i].split( kabbes_config.Key._ATT_SPLIT )
+                node_keys = ref_node_keys[i].split( kabbes_config.key.Key._ATT_SPLIT )
                 assert node_keys[:len(og_keys)] == og_keys
 
                 rel_node_keys = node_keys[ len(og_keys): ]
                 full_node_keys = new_keys + rel_node_keys
 
-                new_key = self._LOCAL_REF_TRIGGER_BEG + kabbes_config.Key._ATT_SPLIT.join(full_node_keys) + self._LOCAL_REF_TRIGGER_END
+                new_key = self._LOCAL_REF_TRIGGER_BEG + kabbes_config.key.Key._ATT_SPLIT.join(full_node_keys) + self._LOCAL_REF_TRIGGER_END
                 value = value.replace( formatted_nodes[i], new_key )
 
             self.set( value )
