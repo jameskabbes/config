@@ -1,84 +1,62 @@
 from parent_class import ParentClass
 import py_starter as ps
-import dir_ops as do
-
-from kabbes_config import Value, Key
+import kabbes_config
 
 class Node( ParentClass ):
 
-    _SPECIAL_REF_OBJS = {
-        "$Dir": do.Dir()
-    }
+    _ARGS_KEY = 'args'
+    _KWARGS_KEY = 'kwargs'
 
-    _ONE_LINE_ATTS = ['type','key']
+    _ONE_LINE_ATTS = ['type','Key','Value']
 
     def __init__( self, key, parent=None, value=None, dict={}):
 
         ParentClass.__init__( self )
 
-        self.nodes = {}
-        self.key = key
-        self.make_Value( value )
+        self._init_Nodes()
+
+        self.Key = kabbes_config.key.Key( self, key )
+        self.set_value( value )
         self.parent = parent
         self.load_dict( dict )
 
     def __len__( self ):
         return len(self.nodes)
-
-    def __iter__( self ):
-        self.i = -1
-        return self
-
-    def __next__( self ):
-
-        self.i += 1
-
-        if self.i >= len(self):
-            raise StopIteration
-        else:
-            return self.nodes[ list(self.nodes.keys())[self.i] ]
-
     def __contains__( self, key ):
         return key in self.nodes
-
     def __getitem__( self, key: str ):
         return self.get_key( key, ref=True )
 
-    ### Value
-    def make_Value( self, value ):
-        self.Value = Value( self, value )
+    def _init_Nodes( self ):
+        self.nodes = kabbes_config.Nodes( self )
 
-    def set_value( self, value ):
-        self.Value.set( value )
-        self.nodes = {}
+    ### Walk
+    def walk( self, leaves:bool=True, branches:bool=True ):
 
-    def get_value( self, **kwargs ):
-        return self.Value.get( **kwargs )
-    def get_ref_value( self ):
-        return self.Value.get_ref()
-    def get_raw_value( self ):
-        return self.Value.get_raw()
+        """returns a list of nodes underneath self, including self"""
 
-    ### Loading
-    def load_dict( self, dict ):
-        for key in dict:
-            self.set_key( key, dict[key] )            
+        nodes = []
+        if len(self) > 0: #branch
+            for child in self.nodes:
+                nodes.extend( child.walk( leaves=leaves, branches=branches ) )
+            if branches:
+                nodes.insert( 0, self )
 
-    def merge( self, node ):
-        self.load_dict( node.get_dict(ref=False,eval=False) )
+        else: #leaf
+            if leaves:
+                nodes.extend( [self] )
 
-    ### Nodes
-    def _add_Node( self, node ):
-        self.nodes[ node.key ] = node
+        return nodes
 
-    def make_Node( self, *args, **kwargs ):
+    def get_parents( self ):
 
-        node = Node( *args, **kwargs, parent=self )
-        self._add_Node( node )
-        return node
+        """returns list of parent node instances, including self"""
 
-    def del_self( self ):
-        del self.parent.nodes[ self.key ]
+        parents = [ self ]
+        if self.parent != None:
+            return self.parent.get_parents() + parents
+
+        return parents
 
     def get_root( self ):
 
@@ -97,9 +75,8 @@ class Node( ParentClass ):
         }
         kwargs = ps.merge_dicts( default_kwargs, kwargs )
 
-        ###
-        head, body = Key.chop_off_head( key )
-        
+        head, body = kabbes_config.key.Key(None,key).chop_off_head()
+
         if head == '':
             if kwargs['has']:
                 return True
@@ -110,12 +87,16 @@ class Node( ParentClass ):
             return self.nodes[ head ].get_node( body, **kwargs )
 
         if head not in self:
-
-            if Key.add_eval_code( head ) in self:
+            
+            # !attr in self
+            eval_key = kabbes_config.key.Key(None,head).add_eval_code()
+            if eval_key in self:
+                eval_node = self.nodes[ eval_key ]
                 if kwargs['eval']:
-                    return self.eval( key ).get_node( body, **kwargs )
+
+                    return eval_node.Key.eval().get_node( body, **kwargs )
                 elif kwargs['has']:
-                    return self.nodes[ Key.add_eval_code(head) ].get_node( body, **kwargs )
+                    return self.nodes[ eval_key ].get_node( body, **kwargs )
 
             elif kwargs['make']:
                 self.make_Node( head )
@@ -124,9 +105,9 @@ class Node( ParentClass ):
         if kwargs['has']:
             return False
         else:
+            print ('returning none')
             return None
 
-    ### get, set, has
     def set_key( self, key: str, value ):
 
         node = self.get_node( key, make=True, eval=False, has=False )
@@ -153,107 +134,61 @@ class Node( ParentClass ):
                 return node.get_value( ref=ref )
 
         return None
-    
-    ### evaluate.!this 
-    def eval( self, key: str ):
-        
-        eval_key = Key.add_eval_code( key )  
 
-        # if the node "!eval_key" is not present
-        if not self.has_key( eval_key ):
-            return self
+    ### Value
+    def set_value( self, value ):
+        self.Value = kabbes_config.value.Value( self, value )
+        self._init_Nodes() #nodes with values cannot have children
 
-        #otherwise...
-        eval_key_node = self.nodes[ eval_key ]
+    def get_value( self, **kwargs ):
+        return self.Value.get( **kwargs )
+    def get_ref_value( self ):
+        return self.Value.get_ref()
+    def get_raw_value( self ):
+        return self.Value.get_raw()
 
-        # if $ref is found under the node
-        if eval_key_node.has_key( Key._REF_OBJ_KEY ):
+    ### Loading
+    def load_dict( self, dict ):
+        for key in dict:
+            self.set_key( key, dict[key] )            
 
-            # $ref
-            ref_obj_node = eval_key_node.nodes[ Key._REF_OBJ_KEY ]
-            ref_obj = ref_obj_node.get_ref_value()
+    def merge( self, node ):
 
-            if type(ref_obj) == str:
-                if ref_obj in self._SPECIAL_REF_OBJS:
-                    ref_obj = self._SPECIAL_REF_OBJS[ ref_obj ]
+        og_parents = node.get_parents()[1:] #don't count config root
+        node_copy = Node( 'TEMP', dict=node.get_dict( ref=False, eval=False ) ) #we don't want to overwrite the original object
 
-            #method
-            if eval_key_node.has_key( Key._METHOD_KEY ):
-                
-                method_node = eval_key_node.nodes[ Key._METHOD_KEY ]
-                method_name_node = method_node.nodes[ Key._METHOD_NAME_KEY ]
+        new_parents = self.get_parents()[1:] #don't count config root
+        leaf_nodes = node_copy.walk( leaves=True,branches=False )
+        for leaf_node in leaf_nodes:
+            leaf_node.Value.merge_ref( og_parents=og_parents, new_parents=new_parents )
 
-                args = method_node.get_args()
-                kwargs = method_node.get_kwargs()
+        self.load_dict( node_copy.get_dict(ref=False,eval=False) )
 
-                method_name_str = method_name_node.get_ref_value()
-
-                try:
-                    method_pointer = ref_obj.get_attr( method_name_str )
-                except:
-                    print ('ERROR')
-                    print ('Could not find method ' + method_name_str + ' for ' + str(ref_obj))
-                    print ('REF NODE: ' + str( ref_obj ))
-                    print ('type: ' + str(type(ref_obj)))
-                    assert False
-                new_obj = method_pointer( *args, **kwargs )
-
-            #attribute
-            elif eval_key_node.has_key( Key._ATTRIBUTE_KEY ):
-                attribute_node = eval_key_node.nodes[ Key._ATTRIBUTE_KEY ]
-                new_obj = ref_obj.get_attr( attribute_node.get_ref_value() )
-
-        # if $ref isn't found just return the node's value
-        else:
-            new_obj = eval_key_node.get_ref_value()
-
-        # Do not add this Node to the parent's nodes, since we will only evaluate it once on runtime
-        new_node = Node( key, parent=self.parent, value=new_obj )
+    ### Nodes
+    def make_Node( self, *args, **kwargs ):
+        """makes a child node and adds it to nodes, do not pass '.' separated keys"""
+        new_node = Node( *args, **kwargs, parent=self )
+        self.nodes._add( new_node.Key.key, new_node )
         return new_node
 
-    ### getting args, kwargs
+    def _del_self( self ):
+        self.parent.nodes._remove( self.Key.key )
+
+    ### args, kwargs
     def get_args( self ):
-
-        if Key._ARGS_KEY in self.nodes:
-            args_node = self.nodes[ Key._ARGS_KEY ]
-            return args_node.get_list( ref=True, eval=True )
-
+        if self._ARGS_KEY in self.nodes:
+            args_node = self.nodes[ self._ARGS_KEY ]
+            return args_node.get_value( ref=True )
         return []
 
     def get_kwargs( self ):
         
-        if Key._KWARGS_KEY in self.nodes:
-            kwargs_node = self.nodes[ Key._KWARGS_KEY ]
+        if self._KWARGS_KEY in self.nodes:
+            kwargs_node = self.nodes[ self._KWARGS_KEY ]
             return kwargs_node.get_dict( ref=True, eval=True )
-        
         return {}
 
-    def get_list( self, **kwargs ):
-
-        default_kwargs = {
-             "ref": True, 
-             "eval":True
-        }
-        kwargs = ps.merge_dicts( default_kwargs, kwargs )
-
-        og_list = self.get_raw_value()
-        l = []
-
-        for item in self.get_raw_value():
-
-            self.set_value( item )
-            l.append ( self.get_ref_value() )
-
-        self.set_value( og_list )
-        return l
-
-
     def get_dict( self, **kwargs ):
-
-        ### Loading
-        def load_dict( self, dict ):
-            for key in dict:
-                self.set_key( key, dict[key] )            
 
         default_kwargs = {
              "ref": True, 
@@ -264,20 +199,19 @@ class Node( ParentClass ):
         d = {}
 
         #parent node
-        for node_key in self.nodes:
+        for child_Node in self.nodes:
 
             #!attr
-            if Key.has_eval_code( node_key ) and kwargs['eval']:
-                
-                value = self.get_node( Key.strip_eval_code( node_key ), eval=kwargs['eval'] )
-                d[Key.strip_eval_code( node_key )] = value.get_dict( **kwargs )
+            if child_Node.Key.has_eval_code() and kwargs['eval']:
+                value = self.get_node( child_Node.Key.strip_eval_code(), eval=kwargs['eval'] )
+                d[child_Node.Key.strip_eval_code()] = value.get_dict( **kwargs )
 
             #attr
             else:
-                node = self.get_node( node_key, eval=kwargs['eval'] )
+                node = self.get_node( child_Node.Key.key, eval=kwargs['eval'] )
                 value =  node.get_dict( **kwargs )
 
-                d[ node_key ] = node.get_dict( **kwargs )
+                d[ child_Node.Key.key ] = node.get_dict( **kwargs )
 
         if self.get_raw_value() != None:
             return self.get_value( ref=kwargs['ref'] )
@@ -293,24 +227,24 @@ class Node( ParentClass ):
     def get_eval_dict( self ):
         return self.get_dict( ref=True, eval=True )
 
-
-
-
     ### feedback
-    def print_imp_atts( self, tab=0, ref=False, **override_kwargs ):
+    def print_imp_atts( self, tab=0, ref=False, eval=False, **override_kwargs ):
         
         default_kwargs = {'print_off': True}
         kwargs = ps.merge_dicts( default_kwargs, override_kwargs ) 
 
         string = ''
-        string += '\t'*tab + self.key + '\n'
-        for node in self:
-            new_kwargs = kwargs.copy()
-            new_kwargs['print_off'] = False
-            string += node.print_imp_atts( tab=tab+1, ref=ref, **new_kwargs ) 
-        
+        node_dict = self.get_dict( ref=ref, eval=eval )
+
+        if type(node_dict) == dict:
+            for key in node_dict:
+                string += '\t'*tab + key + '\n'
+                new_kwargs = kwargs.copy()
+                new_kwargs['print_off'] = False
+                string += self.get_node( key, ref=ref,eval=eval ).print_imp_atts( tab=tab+1, ref=ref,eval=eval, **new_kwargs )
+       
         value = self.get_value( ref=ref )
         if value != None:
-            string += '\t'*(tab+1) + str(value) + '\n'
+            string += '\t'*(tab) + str(value) + '\n'
 
         return self.print_string( string, print_off = kwargs['print_off'] )

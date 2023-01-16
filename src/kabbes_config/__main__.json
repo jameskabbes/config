@@ -1,0 +1,19 @@
+{
+    "A": "value",
+    "D.E.F":"{{D.E2}}+{{D.E2}}",
+    "D.E2":"ASDF",
+    "test.!Dir":{
+        "$ref": "$Dir",
+        "method":{
+            "name":"construct",
+            "args":["Dir"],
+            "kwargs":{
+                "path":"/This/is/a/test/dir"
+            }
+        }
+    },
+    "list_test": ["one","two","{{A}}","{{test.Dir}} ASDFASDF"]
+
+
+}
+   
