@@ -64,6 +64,23 @@ class Node( ParentClass ):
             return self.parent.get_root()
         return self
 
+    def adopt( self, node ):
+
+        """adopt a new child `node` onto self """
+
+        og_parents = node.get_parents()[1:] #don't count config root
+        new_parents = self.get_parents()[1:] + [ node ]
+
+        # child gets new parent
+        node.parent = self
+
+        # self gets new child
+        self.nodes._add( node.Key.key, node )
+
+        leaf_nodes = node.walk( leaves=True,branches=False )
+        for leaf_node in leaf_nodes:
+            leaf_node.Value.merge_ref( og_parents=og_parents, new_parents=new_parents )
+
     ### getting node
     def get_node( self, key: str, **kwargs ):
 
@@ -105,7 +122,6 @@ class Node( ParentClass ):
         if kwargs['has']:
             return False
         else:
-            print ('returning none')
             return None
 
     def set_key( self, key: str, value ):
