@@ -17,10 +17,13 @@ class List( ParentPluralList, Base ):
         for item in self.value:
             self._add( Single( self.Node, item ) )
 
-    def get_ref( self, *args, **kwargs ):
+    def get_raw( self ):
+        return [ Single.get_raw() for Single in self ]
+
+    def get_ref( self ):
         return [ Single.get_ref() for Single in self ]
 
     def merge_ref( self, *args, **kwargs ):
         
         for Single in self:
-            Single.merge_ref()
+            Single.merge_ref( *args, **kwargs )
