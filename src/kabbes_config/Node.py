@@ -141,11 +141,11 @@ class Node( ParentClass ):
 
         if node != None:
            
-            # Return the Node
-            if node.get_raw_value() == None:
+            # Has children, return the node
+            if len(node) > 0:
                 return node
 
-            # Return the Value
+            # Has no children, return the value
             else:
                 return node.get_value( ref=ref )
 
