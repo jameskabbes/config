@@ -1,0 +1,45 @@
+kabbes\_config.value package
+============================
+
+Submodules
+----------
+
+kabbes\_config.value.Base module
+--------------------------------
+
+.. automodule:: kabbes_config.value.Base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_config.value.List module
+--------------------------------
+
+.. automodule:: kabbes_config.value.List
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_config.value.Single module
+----------------------------------
+
+.. automodule:: kabbes_config.value.Single
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_config.value.Value module
+---------------------------------
+
+.. automodule:: kabbes_config.value.Value
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: kabbes_config.value
+   :members:
+   :undoc-members:
+   :show-inheritance:

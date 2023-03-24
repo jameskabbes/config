@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kabbes_config.Node &mdash; kabbes_config 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            kabbes_config
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">kabbes_config</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">kabbes_config.Node</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for kabbes_config.Node</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">parent_class</span> <span class="kn">import</span> <span class="n">ParentClass</span>
+<span class="kn">import</span> <span class="nn">py_starter</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="kn">import</span> <span class="nn">kabbes_config</span>
+
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span> <span class="n">ParentClass</span> <span class="p">):</span>
+
+    <span class="n">_ARGS_KEY</span> <span class="o">=</span> <span class="s1">&#39;args&#39;</span>
+    <span class="n">_KWARGS_KEY</span> <span class="o">=</span> <span class="s1">&#39;kwargs&#39;</span>
+
+    <span class="n">_ONE_LINE_ATTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;Key&#39;</span><span class="p">,</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="p">{}):</span>
+
+        <span class="n">ParentClass</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_Nodes</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Key</span> <span class="o">=</span> <span class="n">kabbes_config</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">Key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span> <span class="nb">dict</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_key</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_init_Nodes</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">kabbes_config</span><span class="o">.</span><span class="n">Nodes</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+
+    <span class="c1">### Walk</span>
+<div class="viewcode-block" id="Node.walk"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.walk">[docs]</a>    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">leaves</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">branches</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span> <span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;returns a list of nodes underneath self, including self&quot;&quot;&quot;</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1">#branch</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="n">child</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span> <span class="n">leaves</span><span class="o">=</span><span class="n">leaves</span><span class="p">,</span> <span class="n">branches</span><span class="o">=</span><span class="n">branches</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="n">branches</span><span class="p">:</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#leaf</span>
+            <span class="k">if</span> <span class="n">leaves</span><span class="p">:</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">nodes</span></div>
+
+<div class="viewcode-block" id="Node.get_parents"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_parents">[docs]</a>    <span class="k">def</span> <span class="nf">get_parents</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;returns list of parent node instances, including self&quot;&quot;&quot;</span>
+
+        <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span> <span class="bp">self</span> <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_parents</span><span class="p">()</span> <span class="o">+</span> <span class="n">parents</span>
+
+        <span class="k">return</span> <span class="n">parents</span></div>
+
+<div class="viewcode-block" id="Node.get_root"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_root">[docs]</a>    <span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_root</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Node.adopt"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.adopt">[docs]</a>    <span class="k">def</span> <span class="nf">adopt</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;adopt a new child `node` onto self &quot;&quot;&quot;</span>
+
+        <span class="n">og_parents</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_parents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1">#don&#39;t count config root</span>
+        <span class="n">new_parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="p">[</span> <span class="n">node</span> <span class="p">]</span>
+
+        <span class="c1"># child gets new parent</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="c1"># self gets new child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span> <span class="n">node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">node</span> <span class="p">)</span>
+
+        <span class="n">leaf_nodes</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span> <span class="n">leaves</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">branches</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">leaf_node</span> <span class="ow">in</span> <span class="n">leaf_nodes</span><span class="p">:</span>
+            <span class="n">leaf_node</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">merge_ref</span><span class="p">(</span> <span class="n">og_parents</span><span class="o">=</span><span class="n">og_parents</span><span class="p">,</span> <span class="n">new_parents</span><span class="o">=</span><span class="n">new_parents</span> <span class="p">)</span></div>
+
+    <span class="c1">### getting node</span>
+<div class="viewcode-block" id="Node.get_node"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_node">[docs]</a>    <span class="k">def</span> <span class="nf">get_node</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;level1.level2.level3&quot;&quot;&quot;</span>
+        <span class="n">default_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;make&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;eval&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;has&quot;</span><span class="p">:</span>  <span class="kc">False</span>
+        <span class="p">}</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">merge_dicts</span><span class="p">(</span> <span class="n">default_kwargs</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="n">head</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">kabbes_config</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">Key</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">chop_off_head</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">head</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;has&#39;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>   
+                <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">if</span> <span class="n">head</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="n">head</span> <span class="p">]</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">head</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            
+            <span class="c1"># !attr in self</span>
+            <span class="n">eval_key</span> <span class="o">=</span> <span class="n">kabbes_config</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">Key</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">head</span><span class="p">)</span><span class="o">.</span><span class="n">add_eval_code</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">eval_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">eval_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="n">eval_key</span> <span class="p">]</span>
+                <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;eval&#39;</span><span class="p">]:</span>
+
+                    <span class="k">return</span> <span class="n">eval_node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;has&#39;</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="n">eval_key</span> <span class="p">]</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;make&#39;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">make_Node</span><span class="p">(</span> <span class="n">head</span> <span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="n">head</span> <span class="p">]</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+    
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;has&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Node.set_key"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.set_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="n">make</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">dict</span> <span class="p">):</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.has_key"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.has_key">[docs]</a>    <span class="k">def</span> <span class="nf">has_key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="n">make</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.get_key"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span> <span class="p">):</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="n">make</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">has</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">node</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+           
+            <span class="c1"># Has children, return the node</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">node</span>
+
+            <span class="c1"># Has no children, return the value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="c1">### Value</span>
+<div class="viewcode-block" id="Node.set_value"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">kabbes_config</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_Nodes</span><span class="p">()</span> <span class="c1">#nodes with values cannot have children</span></div>
+
+<div class="viewcode-block" id="Node.get_value"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span></div>
+<div class="viewcode-block" id="Node.get_ref_value"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_ref_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_ref_value</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">get_ref</span><span class="p">()</span></div>
+<div class="viewcode-block" id="Node.get_raw_value"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_raw_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_value</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">get_raw</span><span class="p">()</span></div>
+
+    <span class="c1">### Loading</span>
+<div class="viewcode-block" id="Node.load_dict"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.load_dict">[docs]</a>    <span class="k">def</span> <span class="nf">load_dict</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">dict</span> <span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="p">)</span>            </div>
+
+<div class="viewcode-block" id="Node.merge"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">node</span> <span class="p">):</span>
+
+        <span class="n">og_parents</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_parents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1">#don&#39;t count config root</span>
+        <span class="n">node_copy</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span> <span class="p">)</span> <span class="c1">#we don&#39;t want to overwrite the original object</span>
+
+        <span class="n">new_parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1">#don&#39;t count config root</span>
+        <span class="n">leaf_nodes</span> <span class="o">=</span> <span class="n">node_copy</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span> <span class="n">leaves</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">branches</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">leaf_node</span> <span class="ow">in</span> <span class="n">leaf_nodes</span><span class="p">:</span>
+            <span class="n">leaf_node</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">merge_ref</span><span class="p">(</span> <span class="n">og_parents</span><span class="o">=</span><span class="n">og_parents</span><span class="p">,</span> <span class="n">new_parents</span><span class="o">=</span><span class="n">new_parents</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span> <span class="n">node_copy</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="nb">eval</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="p">)</span></div>
+
+    <span class="c1">### Nodes</span>
+<div class="viewcode-block" id="Node.make_Node"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.make_Node">[docs]</a>    <span class="k">def</span> <span class="nf">make_Node</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;makes a child node and adds it to nodes, do not pass &#39;.&#39; separated keys&quot;&quot;&quot;</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span> <span class="n">new_node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">new_node</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_node</span></div>
+
+    <span class="k">def</span> <span class="nf">_del_self</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">key</span> <span class="p">)</span>
+
+    <span class="c1">### args, kwargs</span>
+<div class="viewcode-block" id="Node.get_args"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_args">[docs]</a>    <span class="k">def</span> <span class="nf">get_args</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARGS_KEY</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">args_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARGS_KEY</span> <span class="p">]</span>
+            <span class="k">return</span> <span class="n">args_node</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Node.get_kwargs"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">get_kwargs</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KWARGS_KEY</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">kwargs_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span> <span class="bp">self</span><span class="o">.</span><span class="n">_KWARGS_KEY</span> <span class="p">]</span>
+            <span class="k">return</span> <span class="n">kwargs_node</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+
+    <span class="c1">### Dict</span>
+<div class="viewcode-block" id="Node.get_dict"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_dict</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>
+
+        <span class="n">default_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+             <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
+             <span class="s2">&quot;eval&quot;</span><span class="p">:</span><span class="kc">True</span>
+        <span class="p">}</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">merge_dicts</span><span class="p">(</span> <span class="n">default_kwargs</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1">#parent node</span>
+        <span class="k">for</span> <span class="n">child_Node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+
+            <span class="c1">#!attr</span>
+            <span class="k">if</span> <span class="n">child_Node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">has_eval_code</span><span class="p">()</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;eval&#39;</span><span class="p">]:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">child_Node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">strip_eval_code</span><span class="p">(),</span> <span class="nb">eval</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;eval&#39;</span><span class="p">]</span> <span class="p">)</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">child_Node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">strip_eval_code</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+
+            <span class="c1">#attr</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">child_Node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;eval&#39;</span><span class="p">]</span> <span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span>  <span class="n">node</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+
+                <span class="n">d</span><span class="p">[</span> <span class="n">child_Node</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">key</span> <span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_raw_value</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">]</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">d</span> </div>
+
+<div class="viewcode-block" id="Node.get_raw_dict"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_raw_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_dict</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.get_ref_dict"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_ref_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_ref_dict</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.get_eval_dict"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.get_eval_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_eval_dict</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span></div>
+
+    <span class="c1">### feedback</span>
+<div class="viewcode-block" id="Node.print_imp_atts"><a class="viewcode-back" href="../../kabbes_config.html#kabbes_config.Node.Node.print_imp_atts">[docs]</a>    <span class="k">def</span> <span class="nf">print_imp_atts</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">tab</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">override_kwargs</span> <span class="p">):</span>
+        
+        <span class="n">default_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;print_off&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">merge_dicts</span><span class="p">(</span> <span class="n">default_kwargs</span><span class="p">,</span> <span class="n">override_kwargs</span> <span class="p">)</span> 
+
+        <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">node_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dict</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="nb">eval</span><span class="o">=</span><span class="nb">eval</span> <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">node_dict</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">node_dict</span><span class="p">:</span>
+                <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">tab</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">new_kwargs</span><span class="p">[</span><span class="s1">&#39;print_off&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span><span class="nb">eval</span><span class="o">=</span><span class="nb">eval</span> <span class="p">)</span><span class="o">.</span><span class="n">print_imp_atts</span><span class="p">(</span> <span class="n">tab</span><span class="o">=</span><span class="n">tab</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span><span class="nb">eval</span><span class="o">=</span><span class="nb">eval</span><span class="p">,</span> <span class="o">**</span><span class="n">new_kwargs</span> <span class="p">)</span>
+       
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_string</span><span class="p">(</span> <span class="n">string</span><span class="p">,</span> <span class="n">print_off</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;print_off&#39;</span><span class="p">]</span> <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, James Kabbes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

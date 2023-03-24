@@ -1,0 +1,46 @@
+kabbes\_config package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   kabbes_config.key
+   kabbes_config.value
+
+Submodules
+----------
+
+kabbes\_config.Config module
+----------------------------
+
+.. automodule:: kabbes_config.Config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_config.Node module
+--------------------------
+
+.. automodule:: kabbes_config.Node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_config.Nodes module
+---------------------------
+
+.. automodule:: kabbes_config.Nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: kabbes_config
+   :members:
+   :undoc-members:
+   :show-inheritance:
