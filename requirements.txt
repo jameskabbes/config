@@ -1,4 +1,3 @@
 kabbes_py_starter
 kabbes_dir_ops
 kabbes_parent_class
-xdg
