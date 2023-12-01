@@ -1,5 +1,5 @@
 from parent_class import ParentPluralDict
-import py_starter as ps
+import py_seedlings as ps
 
 class Nodes( ParentPluralDict ):
 

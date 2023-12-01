@@ -1,4 +1,4 @@
-import py_starter as ps
+import py_seedlings as ps
 from parent_class import ParentClass
 import kabbes_config
 

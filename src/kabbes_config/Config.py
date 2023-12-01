@@ -1,5 +1,5 @@
 from kabbes_config import Node
-import py_starter as ps
+import py_seedlings as ps
 
 class Config( Node ):
 
